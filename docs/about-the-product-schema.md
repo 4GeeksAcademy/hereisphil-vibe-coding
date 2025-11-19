@@ -41,77 +41,69 @@ Each section contains reserved comment blocks (`<!-- -->`) that signal where to 
 
 ## Product Name
 
-<!--
-    Insert the official name of the product here.
--->
+AutoPomo
+
+Automated Pomodoro flow for focused work.
 
 ---
 
 ## Purpose / Mission
 
-<!--
-    Describe what the product is designed to accomplish and the core problem it solves.
--->
+AutoPomo removes the mental overhead of managing timers and task transitions so users can maintain deep focus. It automates Pomodoro cycles and task progression with a single, low‑friction action.
 
 ---
 
 ## Target Audience
 
-<!--
-    Describe the intended users or market segments this product serves.
--->
+- Solo developers, coding students, and knowledge workers who value minimal setup and uninterrupted focus.
+- People who prefer simple timeboxing without configuration or distraction.
 
 ---
 
 ## Core Value Proposition
 
-<!--
-    Summarize what makes the product valuable or unique compared to alternatives.
--->
+- Start one flow and let the app handle work/break sequencing automatically.
+- Minimal UI and predictable transitions that preserve flow and reduce context switching.
 
 ---
 
 ## MVP Objective
 
-<!--
-    Define the minimal feature set required for a viable launch.
-    This should correspond to the MVP features in implementation-plan.md.
--->
+Deliver a dependable, single‑flow automated Pomodoro web app: task queue with pomodoro assignments, one prominent `Start Flow` action, automated timer sequencing (25m work, 5m short breaks, 15m long break every 4 pomodoros), and simple audible/visual cues. Exclude analytics, customization, and multi‑device sync for the initial release.
 
 ---
 
 ## Long-Term Vision
 
-<!--
-    Describe future expansion goals, potential features, integrations, or business directions.
--->
+- Add lightweight customization and session history so users can optionally track progress.
+- Offer optional cloud persistence and integrations (calendar, notifications, team sync) while keeping the core one‑tap start and distraction‑free experience.
 
 ---
 
 ## Design & Experience Principles
 
-<!--
-    Define key design guidelines and user experience philosophies.
-    Examples: simplicity, clarity, accessibility, modern UI, responsive layout, etc.
--->
+- Minimal: prioritize a single clear primary action and defer non-essential controls.
+- Predictable feedback: clearly communicate state transitions with unobtrusive visual and audio cues.
+- Non‑intrusive: avoid modal interruptions; allow users to keep working without dismissing dialogs.
+- Accessible: ensure readable typography, sufficient contrast, and keyboard support for core actions.
 
 ---
 
 ## Technical Overview
 
-<!--
-    List core technologies, frameworks, and platforms used (frontend, backend, database, hosting, etc.).
-    Example: "Frontend: React + Vite | Backend: Flask | Database: Supabase | Deployment: Vercel MCP"
--->
+- Frontend (MVP): React + Vite (small SPA) or lightweight vanilla JS for a minimal bundle.
+- Storage (MVP): `localStorage` for ephemeral session state and simple persistence between reloads.
+- Optional backend (post‑MVP): Supabase (Postgres) or a small serverless API for session history and multi‑device sync.
+- Deployment: static hosting (Vercel, Netlify, or similar) for fast, low‑cost delivery.
 
 ---
 
 ## Product Structure Overview
 
-<!--
-    Optionally, summarize major app sections or components at a high level (e.g., Dashboard, Profile, Reports).
-    This helps the AI understand the architecture contextually.
--->
+- Start Screen: prominent `Start Flow` control and task input area with assigned pomodoros.
+- Timer Component: single source of truth for countdowns, state transitions, and notifications.
+- Task Queue: simple list showing task names and remaining pomodoros.
+- Session Summary: brief end‑of‑session feedback (deferred details for post‑MVP).
 
 ---
 
@@ -119,11 +111,7 @@ Each section contains reserved comment blocks (`<!-- -->`) that signal where to 
 
 > _Chronological updates describing how the product concept, goals, or positioning have changed over time._
 
-<!--
-    Example:
-    - 2025-10-08  Initial concept defined.
-    - 2025-10-20  Added analytics and trend visualization to MVP scope.
--->
+- 2025-11-19 Product name confirmed as AutoPomo; initial product schema and MVP summary added to `about-the-product-schema.md`.
 
 ---
 

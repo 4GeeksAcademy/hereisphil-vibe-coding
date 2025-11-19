@@ -139,3 +139,5 @@ Each section contains **reserved space** where the AI (or a developer) should in
     Use this section to summarize development sessions, bug fixes, or major updates.
     Example: "2025-10-10  Completed MVP login flow; integrated Supabase + Clerk."
 -->
+
+- 2025-11-19 Confirmed product name `AutoPomo` and added initial product schema to `docs/about-the-product-schema.md`.
