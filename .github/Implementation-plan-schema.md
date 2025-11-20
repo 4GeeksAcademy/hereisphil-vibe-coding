@@ -411,3 +411,4 @@ As a user, I want to save a routine so I can reuse it later on another device wh
 -->
 
 - 2025-11-19 Confirmed product name `AutoPomo` and added initial product schema to `docs/about-the-product-schema.md`.
+- 2025-11-20 Migrated to Tailwind CSS v4 with @import syntax; fixed PostCSS config for Tailwind v4; refactored components for React 19 idioms and type-only imports; ensured all markdown files and implementation schema remain aligned with product guidelines.
