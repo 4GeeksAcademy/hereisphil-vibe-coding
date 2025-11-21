@@ -1,6 +1,6 @@
-- Before beginning any task, always reference the about-the-product-schema.md and implementation-plan-schema.md within the .gihub directory for context and to remain on task.
+- Before beginning any task, always reference all of the files within the .github directory for context and to remain on task.
 - Run npm run build, identify any errors, and fix them until the build passes.
 - Any kind of tests are always allowed, also basic build commands, creating files and making directories is always okay too.
 - If you are going to console.log a variable into the console, add it as a second parameter like console.log("variable_name", variable_name)
 - MCP stands for "model context protocol", this gives you the ability to interact with external systems such as supabase and vercel.
-- Finally, when finishing the task, update the steps of the implementation plan, ensure that all steps are marked as completed as you complete them with "✅".
+- Finally, before finishing the task, mark off the completed steps of the ./github/implementation-plan-schema.md with a "✅".

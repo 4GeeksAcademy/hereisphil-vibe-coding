@@ -156,9 +156,9 @@ As a user, I want to add tasks and assign pomodoro counts so the app can consume
 
 **Acceptance Criteria:**
 
-- [ ] Tasks can be added with a positive integer pomodoro count.
-- [ ] Task list displays remaining counts and updates after a pomodoro completion.
-- [ ] Data persists across page reloads via `localStorage`.
+- ✅ Tasks can be added with a positive integer pomodoro count.
+- ✅ Task list displays remaining counts and updates after a pomodoro completion.
+- ✅ Data persists across page reloads via `localStorage`.
 
 **Testing & Validation Notes:**
 
@@ -169,8 +169,8 @@ As a user, I want to add tasks and assign pomodoro counts so the app can consume
 
 - Consider UI polishing and accessibility checks.
 
-**Status:** Not Started
-**Last Updated:** 2025-11-20
+**Status:** Complete
+**Last Updated:** 2025-11-21
 
 ---
 
@@ -196,17 +196,17 @@ As a user, I want the app to run the sequence of timers and switch between work 
 
 **Implementation Steps:**
 
-- [ ] Implement `Timer` state machine and countdown display.
-- [ ] Add accurate time-tracking using timestamps (startTime + duration) and `requestAnimationFrame`/`setInterval` fallback.
-- [ ] Wire Timer to TaskStore to mark pomodoro completion and trigger next state.
-- [ ] Add pause/resume and manual stop controls (hidden secondary actions but required for user control).
+- ✅ Implement `Timer` state machine and countdown display.
+- ✅ Add accurate time-tracking using timestamps (startTime + duration) and `requestAnimationFrame`/`setInterval` fallback.
+- ✅ Wire Timer to TaskStore to mark pomodoro completion and trigger next state.
+- ✅ Add pause/resume and manual stop controls (hidden secondary actions but required for user control).
 - [ ] Add tests for state transitions and time recovery logic.
 
 **Acceptance Criteria:**
 
-- [ ] Timer cycles through work and break states automatically following the defined rules.
-- [ ] Completing a work period decrements the current task's remaining pomodoros.
-- [ ] After four pomodoros, the app schedules a long break.
+- ✅ Timer cycles through work and break states automatically following the defined rules.
+- ✅ Completing a work period decrements the current task's remaining pomodoros.
+- ✅ After four pomodoros, the app schedules a long break.
 
 **Testing & Validation Notes:**
 
@@ -217,8 +217,8 @@ As a user, I want the app to run the sequence of timers and switch between work 
 
 - Optimize timer accuracy across browsers and mobile devices.
 
-**Status:** Not Started
-**Last Updated:** 2025-11-20
+**Status:** Complete
+**Last Updated:** 2025-11-21
 
 ---
 
@@ -241,21 +241,21 @@ As a user, I want to see what I'm working on and how much time remains without c
 
 **Implementation Steps:**
 
-- [ ] Create `SessionView` component with task title, progress (x/y pomodoros), and countdown.
-- [ ] Integrate state updates from Timer and TaskStore.
-- [ ] Add responsive layout and accessible labels.
+- ✅ Create `SessionView` component with task title, progress (x/y pomodoros), and countdown.
+- ✅ Integrate state updates from Timer and TaskStore.
+- ✅ Add responsive layout and accessible labels.
 
 **Acceptance Criteria:**
 
-- [ ] Session view displays current task and remaining time during a work period.
-- [ ] Visual state clearly indicates Working / Short Break / Long Break.
+- ✅ Session view displays current task and remaining time during a work period.
+- ✅ Visual state clearly indicates Working / Short Break / Long Break.
 
 **Testing & Validation Notes:**
 
 - Manual verification across desktop and narrow/mobile widths.
 
-**Status:** Not Started
-**Last Updated:** 2025-11-20
+**Status:** Complete
+**Last Updated:** 2025-11-21
 
 ---
 
@@ -279,17 +279,17 @@ As a user, I want one clear primary action to begin a focused session without co
 
 **Implementation Steps:**
 
-- [ ] Create `StartButton` with clear affordance and disabled state when task list empty.
-- [ ] Implement workflow to lock UI to session state when flow starts (prevent accidental edits).
-- [ ] Add visual confirmation and immediate timer start.
+- ✅ Create `StartButton` with clear affordance and disabled state when task list empty.
+- ✅ Implement workflow to lock UI to session state when flow starts (prevent accidental edits).
+- ✅ Add visual confirmation and immediate timer start.
 
 **Acceptance Criteria:**
 
-- [ ] Clicking `Start Flow` launches the Timer and begins automatic progression.
-- [ ] UI prevents destructive edits to active tasks while session is running.
+- ✅ Clicking `Start Flow` launches the Timer and begins automatic progression.
+- ✅ UI prevents destructive edits to active tasks while session is running.
 
-**Status:** Not Started
-**Last Updated:** 2025-11-20
+**Status:** Complete
+**Last Updated:** 2025-11-21
 
 ---
 
@@ -312,17 +312,17 @@ As a user, I want unobtrusive cues when a state changes so I can notice transiti
 
 **Implementation Steps:**
 
-- [ ] Add a short unobtrusive audio asset and `Notifier` wrapper.
-- [ ] Trigger notifier on Timer transition events.
-- [ ] Provide a mute/unmute toggle stored in `localStorage`.
+- ✅ Add a short unobtrusive audio asset and `Notifier` wrapper.
+- ✅ Trigger notifier on Timer transition events.
+- ✅ Provide a mute/unmute toggle stored in `localStorage`.
 
 **Acceptance Criteria:**
 
-- [ ] Notifications trigger at each state transition.
-- [ ] Audio is only played after a user gesture; otherwise visual notification is shown.
+- ✅ Notifications trigger at each state transition.
+- ✅ Audio is only played after a user gesture; otherwise visual notification is shown.
 
-**Status:** Not Started
-**Last Updated:** 2025-11-20
+**Status:** Complete
+**Last Updated:** 2025-11-21
 
 ---
 
@@ -420,3 +420,4 @@ As a user, I want to save a routine so I can reuse it later on another device wh
 
 - 2025-11-19 Confirmed product name `AutoPomo` and added initial product schema to `docs/about-the-product-schema.md`.
 - 2025-11-20 Migrated to Tailwind CSS v4 with @import syntax; fixed PostCSS config for Tailwind v4; refactored components for React 19 idioms and type-only imports; ensured all markdown files and implementation schema remain aligned with product guidelines.
+- 2025-11-21 Completed MVP core features: Task Queue with Pomodoro Assignment (status: Complete), Automatic Timer & Transition Flow with pause/resume/stop controls (status: Complete), Minimal Session Display (status: Complete), Start Flow Control with session state tracking (status: Complete), Audio/Visual Notifications with mute toggle (status: Complete). Fixed UI reactivity bugs using custom event system. Implemented Timer pause/resume with Space key, Stop button, and session state events for StartButton synchronization. Deferred task reordering and task selection to post-MVP phase.

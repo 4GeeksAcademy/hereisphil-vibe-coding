@@ -46,13 +46,13 @@ export default function TaskList() {
           <div className="flex gap-2">
             <button
               onClick={() => onReset(t.id)}
-              className="text-xs px-2 py-1 border rounded"
+              className="text-xs px-2 py-1 border rounded cursor-pointer hover:bg-gray-100 transition"
             >
               Reset
             </button>
             <button
               onClick={() => onRemove(t.id)}
-              className="text-xs px-2 py-1 border rounded"
+              className="text-xs px-2 py-1 border rounded cursor-pointer hover:bg-gray-100 transition"
             >
               Remove
             </button>

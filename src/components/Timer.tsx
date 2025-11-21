@@ -4,9 +4,9 @@ import { decrementCurrentTask, readTasks } from "../lib/taskStore";
 
 type Mode = "idle" | "work" | "short_break" | "long_break";
 
-const WORK_MIN = 0.1;
-const SHORT_MIN = 0.05;
-const LONG_MIN = 0.1;
+const WORK_MIN = 25;
+const SHORT_MIN = 5;
+const LONG_MIN = 15;
 
 function minutesToMs(m: number) {
   return m * 60 * 1000;
@@ -17,14 +17,46 @@ export default function Timer() {
   const [endAt, setEndAt] = useState<number | null>(null);
   const [remainingMs, setRemainingMs] = useState(0);
   const [completedPomos, setCompletedPomos] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [pausedAt, setPausedAt] = useState<number | null>(null);
+
+  function handlePause() {
+    if (paused || !endAt) return;
+    setPaused(true);
+    setPausedAt(Date.now());
+    audioManager.stopTicking();
+  }
+
+  function handleResume() {
+    if (!paused || !endAt || !pausedAt) return;
+    const elapsed = Date.now() - pausedAt;
+    setEndAt(endAt + elapsed);
+    setPaused(false);
+    setPausedAt(null);
+    if (mode === "work") {
+      audioManager.startTicking();
+    }
+  }
+
+  function handleStop() {
+    setMode("idle");
+    setEndAt(null);
+    setPaused(false);
+    setPausedAt(null);
+    setCompletedPomos(0);
+    audioManager.stopTicking();
+    window.dispatchEvent(new CustomEvent("autopomo:session-ended"));
+  }
 
   useEffect(() => {
     function startHandler() {
       const end = Date.now() + minutesToMs(WORK_MIN);
       setMode("work");
       setEndAt(end);
+      setPaused(false);
       audioManager.playBeginTask();
       audioManager.startTicking();
+      window.dispatchEvent(new CustomEvent("autopomo:session-started"));
     }
     window.addEventListener("autopomo:start", startHandler as EventListener);
     return () =>
@@ -35,9 +67,24 @@ export default function Timer() {
   }, []);
 
   useEffect(() => {
+    function handleKeyPress(e: KeyboardEvent) {
+      if (e.code === "Space" && mode !== "idle") {
+        e.preventDefault();
+        if (paused) {
+          handleResume();
+        } else {
+          handlePause();
+        }
+      }
+    }
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [paused, mode]);
+
+  useEffect(() => {
     let raf = 0;
     function tick() {
-      if (!endAt) return;
+      if (!endAt || paused) return;
       const now = Date.now();
       const rem = Math.max(0, endAt - now);
       setRemainingMs(rem);
@@ -65,6 +112,7 @@ export default function Timer() {
             setMode("idle");
             setEndAt(null);
             audioManager.stopTicking();
+            window.dispatchEvent(new CustomEvent("autopomo:session-ended"));
           }
         }
       }
@@ -72,7 +120,7 @@ export default function Timer() {
     }
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [endAt, mode, completedPomos]);
+  }, [endAt, mode, completedPomos, paused]);
 
   if (mode === "idle") return null;
 
@@ -87,9 +135,36 @@ export default function Timer() {
           : mode === "short_break"
           ? "Short break"
           : "Long break"}
+        {paused && " (Paused)"}
       </div>
       <div className="text-3xl font-mono my-2">
         {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
+      </div>
+      <div className="flex gap-2 mt-3">
+        {!paused ? (
+          <button
+            onClick={handlePause}
+            className="flex-1 text-sm px-3 py-1 border rounded hover:bg-gray-100"
+          >
+            Pause
+          </button>
+        ) : (
+          <button
+            onClick={handleResume}
+            className="flex-1 text-sm px-3 py-1 border rounded hover:bg-gray-100"
+          >
+            Resume
+          </button>
+        )}
+        <button
+          onClick={handleStop}
+          className="flex-1 text-sm px-3 py-1 border rounded hover:bg-red-50 text-red-600"
+        >
+          Stop
+        </button>
+      </div>
+      <div className="text-xs text-slate-400 mt-2">
+        Press Space to pause/resume
       </div>
     </div>
   );
