@@ -6,9 +6,13 @@ export default function TaskList() {
   const [tasks, setTasks] = useState<Task[]>(() => readTasks());
 
   useEffect(() => {
-    const onStorage = () => setTasks(readTasks());
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    const onUpdate = () => setTasks(readTasks());
+    window.addEventListener("storage", onUpdate);
+    window.addEventListener("autopomo:tasks-changed", onUpdate);
+    return () => {
+      window.removeEventListener("storage", onUpdate);
+      window.removeEventListener("autopomo:tasks-changed", onUpdate);
+    };
   }, []);
 
   function onRemove(id: string) {

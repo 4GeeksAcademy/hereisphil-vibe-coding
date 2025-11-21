@@ -9,10 +9,14 @@ export default function SessionView() {
   );
 
   useEffect(() => {
-    const onStorage = () =>
+    const onUpdate = () =>
       setCurrent(readTasks().find((x) => x.remaining > 0) ?? null);
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    window.addEventListener("storage", onUpdate);
+    window.addEventListener("autopomo:tasks-changed", onUpdate);
+    return () => {
+      window.removeEventListener("storage", onUpdate);
+      window.removeEventListener("autopomo:tasks-changed", onUpdate);
+    };
   }, []);
 
   return (

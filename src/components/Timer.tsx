@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { audioManager } from "../lib/audioManager";
 import { decrementCurrentTask, readTasks } from "../lib/taskStore";
 
 type Mode = "idle" | "work" | "short_break" | "long_break";
 
-const WORK_MIN = 25;
-const SHORT_MIN = 5;
-const LONG_MIN = 15;
+const WORK_MIN = 0.1;
+const SHORT_MIN = 0.05;
+const LONG_MIN = 0.1;
 
 function minutesToMs(m: number) {
   return m * 60 * 1000;
@@ -22,6 +23,8 @@ export default function Timer() {
       const end = Date.now() + minutesToMs(WORK_MIN);
       setMode("work");
       setEndAt(end);
+      audioManager.playBeginTask();
+      audioManager.startTicking();
     }
     window.addEventListener("autopomo:start", startHandler as EventListener);
     return () =>
@@ -40,6 +43,7 @@ export default function Timer() {
       setRemainingMs(rem);
       if (rem <= 0) {
         if (mode === "work") {
+          audioManager.stopTicking();
           decrementCurrentTask();
           setCompletedPomos((c) => c + 1);
           const nextIsLong = (completedPomos + 1) % 4 === 0;
@@ -48,15 +52,19 @@ export default function Timer() {
             : minutesToMs(SHORT_MIN);
           setMode(nextIsLong ? "long_break" : "short_break");
           setEndAt(Date.now() + dur);
+          audioManager.playBreakStart();
         } else {
           const tasks = readTasks();
           const hasRemaining = tasks.some((t) => t.remaining > 0);
           if (hasRemaining) {
             setMode("work");
             setEndAt(Date.now() + minutesToMs(WORK_MIN));
+            audioManager.playBeginTask();
+            audioManager.startTicking();
           } else {
             setMode("idle");
             setEndAt(null);
+            audioManager.stopTicking();
           }
         }
       }

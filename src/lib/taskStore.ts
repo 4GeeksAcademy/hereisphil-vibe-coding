@@ -18,8 +18,13 @@ export function readTasks(): Task[] {
   }
 }
 
+function notifyTasksChanged() {
+  window.dispatchEvent(new CustomEvent("autopomo:tasks-changed"));
+}
+
 export function writeTasks(tasks: Task[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  notifyTasksChanged();
 }
 
 export function addTask(title: string, pomos: number) {
