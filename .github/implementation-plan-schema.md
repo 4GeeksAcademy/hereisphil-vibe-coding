@@ -146,6 +146,14 @@ As a user, I want to add tasks and assign pomodoro counts so the app can consume
 - [ ] Add integration hooks to the Timer flow to decrement remaining pomodoros.
 - [ ] Add basic tests for TaskStore read/write logic.
 
+**Implementation Steps (status update):**
+
+- ✅ Create `TaskInput` component (title + pomodoro count input).
+- ✅ Implement `TaskList` with remaining pomodoro display.
+- ✅ Implement data layer: `TaskStore` that reads/writes `localStorage` and exposes CRUD functions.
+- ✅ Add integration hooks to the Timer flow to decrement remaining pomodoros.
+- [ ] Add basic tests for TaskStore read/write logic.
+
 **Acceptance Criteria:**
 
 - [ ] Tasks can be added with a positive integer pomodoro count.

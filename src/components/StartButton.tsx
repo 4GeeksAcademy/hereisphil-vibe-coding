@@ -7,7 +7,7 @@ export default function StartButton() {
     <div>
       <button
         onClick={onStart}
-        className="w-full bg-green-600 text-white px-4 py-3 rounded font-semibold"
+        className="w-full bg-green-600 text-white px-4 py-3 rounded font-semibold cursor-pointer hover:bg-green-700 transition"
       >
         Start Flow
       </button>

@@ -28,7 +28,10 @@ export default function TaskInput() {
         value={pomos}
         onChange={(e) => setPomos(Number(e.target.value))}
       />
-      <button className="bg-sky-600 text-white px-3 py-2 rounded" type="submit">
+      <button
+        className="bg-sky-600 text-white px-3 py-2 rounded cursor-pointer hover:bg-sky-700 transition"
+        type="submit"
+      >
         Add
       </button>
     </form>
